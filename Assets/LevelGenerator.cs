@@ -5,6 +5,8 @@ public class LevelGenerator : MonoBehaviour {
 	// This will allow us to drag an image into this slot - Brackeys
 	public Texture2D map;
 
+	public ColorToPrefab[] colorMappings;
+
 	// Use this for initialization
 	void Start () {
 		GenerateLevel();
@@ -32,7 +34,14 @@ public class LevelGenerator : MonoBehaviour {
 			return;
 		}
 
-		Debug.Log(pixelColor);
+		foreach(ColorToPrefab colorMapping in colorMappings)
+		{
+			if (colorMapping.color.Equals(pixelColor))
+			{
+				Vector2 position = new Vector2(x, y);
+				Instantiate(colorMapping.prefab, position, Quaternion.identity, transform);
+			}
+		}
 	}
 	
 }
